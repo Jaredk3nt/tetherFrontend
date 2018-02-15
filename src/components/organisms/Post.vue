@@ -1,7 +1,7 @@
 <template>
 <div class="post-container">
     <div class="top-bar post-bar">
-        <p><</p>
+        <p></p>
     </div>
     <div class="text-container">
         <textarea placeholder="Write a story!" v-model="story"></textarea>

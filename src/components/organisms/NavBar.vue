@@ -1,8 +1,8 @@
 <template>
     <div class="nav-container">
-        <nav-button title="Explore"></nav-button>
-        <nav-button title="Post"></nav-button>
-        <nav-button title="Profile"></nav-button>
+        <nav-button title="Read" event=""></nav-button>
+        <nav-button title="Post" @clicked="startWrite"></nav-button>
+        <nav-button title="Profile" event=""></nav-button>
     </div>
 </template>
 
@@ -11,7 +11,13 @@ import NavButton from '@/components/atoms/NavButton.vue';
 
 export default {
     name:'nav-bar',
-    components: { NavButton }
+    components: { NavButton },
+    methods: {
+        startWrite: function() {
+            console.log("startWrite");
+            this.$store.commit('WRITE');
+        }
+    }
 }
 </script>
 

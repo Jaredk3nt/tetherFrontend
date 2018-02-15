@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <post/>
-    <div class="page-body">
+    <post v-if="this.$store.state.isWriting"/>
+    <div class="page-body" >
       <router-view/>
     </div>
     <nav-bar/>

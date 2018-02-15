@@ -1,5 +1,5 @@
 <template>
-    <div class="nav-button" @click="dispatch">
+    <div class="nav-button" @click="$emit('clicked')">
         <div class="title">{{title}}</div>
     </div>
 </template>
