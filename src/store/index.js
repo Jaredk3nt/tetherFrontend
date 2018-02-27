@@ -16,6 +16,12 @@ const state = {
 const getters = {
     isWriting: state => {
         return state.isWriting;
+    },
+    isPendingLogin: state => {
+        return state.pending;
+    },
+    isLoggedIn: state => {
+        return state.isLoggedIn;
     }
 }
 
@@ -46,11 +52,16 @@ const actions = {
         commit('POST');
     },
     login ({ commit }, creds) {
-        commit(LOGIN); // show spinner
-        return new Promise((resolve) => {
-            this.$http.get('http://localhost:3000/login').then((response) => {
-                commit(LOGIN_SUCCESS);
-                resolve();
+        commit('LOGIN'); // show spinner
+        //console.log(creds);
+        return new Promise( resolve => {
+            Vue.http.post( api + 'login', creds).then( response => {
+                commit('LOGIN_SUCCESS');
+                console.log("oh yeah, login")
+                resolve(response);
+            }, error => {
+                //error
+                console.log("on no error");
             });
         });
     },
@@ -58,8 +69,19 @@ const actions = {
         localStorage.removeItem("token");
         commit(LOGOUT);
     },
-    test ({ commit }) {
-        console.log('test');
+    createUser ({ commit }, creds) {
+        commit('LOGIN'); // show spinner
+        //console.log(creds);
+        return new Promise( resolve => {
+            Vue.http.post( api + 'users', creds).then( response => {
+                commit('LOGIN_SUCCESS');
+                console.log("oh yeah, login");
+                resolve(response);
+            }, error => {
+                //error
+                console.log("on no error");
+            });
+        });
     }
 }
 export default new Vuex.Store({

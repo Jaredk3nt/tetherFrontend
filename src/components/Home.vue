@@ -1,13 +1,17 @@
 <template>
+<div class="page-body">
     <div class="homepage">
         <div class="story-list">
             <story v-for="story in stories" v-bind:key="story.story" :author="story.author" :story="story.story"/>
         </div>
     </div>
+    <nav-bar/>
+</div>
 </template>
 
 <script>
 import Story from '@/components/molecules/Story.vue';
+import NavBar from '@/components/organisms/NavBar.vue';
 
 export default {
   name: 'Home',
@@ -18,23 +22,44 @@ export default {
                 { author: "jared jones", story: "Lorem ipsum this is some random text that is a story. Lorem ipsum this is some random text that is a story. Lorem ipsum this is some random text that is a story. Lorem " }]
     }
   },
-  components: {Story}
+  components: {Story, NavBar}
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 @import '../styles/styles.scss';
-.homepage {
-    overflow: scroll;
+.page-body {
+    display: grid;
+    grid-template-rows: 1fr $nav-height; 
+    height: 100%;
+    box-sizing: border-box;
 
-    .story-list {
-        margin: 0em $mobile-margin;
-        box-sizing: border-box;
+    @include desktop {
+        grid-template-rows: $nav-height 1fr;
+    }
+
+    .homepage {
+        overflow: scroll;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        grid-row-start: 1;
+        overflow: scroll;
 
         @include desktop {
-            margin: 0em $desktop-margin;
+            grid-row-start: 2;
+        }
+
+        .story-list {
+            margin: 0em $mobile-margin;
+            box-sizing: border-box;
+
+            @include desktop {
+                margin: 0em $desktop-margin;
+            }
         }
     }
 }
+
 </style>

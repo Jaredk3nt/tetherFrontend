@@ -1,8 +1,10 @@
 <template>
     <div class="nav-container">
-        <nav-button title="Read" event=""></nav-button>
-        <nav-button title="Post" @clicked="startWrite"></nav-button>
-        <nav-button title="Profile" event=""></nav-button>
+        <nav-button title="Read"/>
+        <nav-button title="Post" @clicked="startWrite"/>
+        <nav-button title="Profile" v-if="isLoggedIn"/>
+        <nav-button title="Login" @clicked="login" v-else/>
+
     </div>
 </template>
 
@@ -12,10 +14,17 @@ import NavButton from '@/components/atoms/NavButton.vue';
 export default {
     name:'nav-bar',
     components: { NavButton },
+    computed: {
+        isLoggedIn: function() {
+            return this.$store.getters.isLoggedIn;
+        }
+    },
     methods: {
         startWrite: function() {
-            console.log("startWrite");
             this.$store.commit('WRITE');
+        },
+        login: function() {
+            this.$router.push('login');
         }
     }
 }
