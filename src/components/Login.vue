@@ -25,7 +25,7 @@ export default {
     name:'login',
     data: function()  {
         return {
-            hasAccount: false,
+            hasAccount: true,
             username: "",
             password: "",
             email: "",
@@ -38,7 +38,7 @@ export default {
         },
         login: function() {
             this.$store.dispatch('login', ( {username: this.username, password: this.password} )).then( response => {
-                console.log(response);
+                this.$router.go(-1);
             }, error => {
                 console.log(error);
             });
@@ -47,7 +47,7 @@ export default {
             //Check to ensure their password is correct
             if(this.password === this.password2) {
                 this.$store.dispatch('createUser', { email: this.email, username: this.username, password: this.password }).then( response => {
-                    console.log(response);
+                    this.$router.go(-1);
                 }, error => {
                     console.log(error);
                 });
@@ -63,7 +63,7 @@ export default {
 <style lang="scss" scoped>
     @import '../styles/styles.scss';
     $login-input-height: 4.5em;
-    $login-grey:#F0F0F0;
+    
     .login-page {
         height: 100%;
         width: 100%;
@@ -81,7 +81,7 @@ export default {
                 height: $login-input-height;
                 padding: 1em;
                 box-sizing: border-box;
-                border-bottom: 1px solid $login-grey;
+                border-bottom: 1px solid $accent-grey;
                 border-style: solid;
                 border-top: none; border-left: none; border-right: none;
             }
@@ -90,7 +90,7 @@ export default {
                 width: 100%;
                 height: calc(#{$login-input-height} - 1em);
                 box-sizing: border-box;
-                background-color: $login-grey;
+                background-color: $accent-grey;
                 border: none;
                 font-size: .85rem;
                 padding: 0px;

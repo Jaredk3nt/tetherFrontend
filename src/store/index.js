@@ -9,7 +9,7 @@ const api = "http://localhost:3000/";
 const state = {
     isWriting: false,
     isLoggedIn: false,
-    username: "",
+    userid: "",
     token: ""
 }
 
@@ -22,6 +22,9 @@ const getters = {
     },
     isLoggedIn: state => {
         return state.isLoggedIn;
+    },
+    userCredentials: state => {
+        return { userid: state.userid, token: state.token }
     }
 }
 
@@ -29,15 +32,21 @@ const mutations = {
     WRITE (state) {
         state.isWriting = true;
     },
+    STOP_WRITE (state) {
+        console.log('stop_write')
+        state.isWriting = false;
+    },
     POST (state) {
         state.isWriting = false;
     },
     LOGIN (state) {
         state.pending = true;
     },
-    LOGIN_SUCCESS (state) {
+    LOGIN_SUCCESS (state, creds) {
         state.isLoggedIn = true;
         state.pending = false;
+        state.token = creds.token;
+        state.userid = creds.userid;
     },
     LOGOUT (state) {
         state.isLoggedIn = false;
@@ -53,12 +62,11 @@ const actions = {
     },
     login ({ commit }, creds) {
         commit('LOGIN'); // show spinner
-        //console.log(creds);
         return new Promise( resolve => {
             Vue.http.post( api + 'login', creds).then( response => {
-                commit('LOGIN_SUCCESS');
-                console.log("oh yeah, login")
-                resolve(response);
+                console.log(response.body._id);
+                commit('LOGIN_SUCCESS', {token:response.body.token, userid:response.body._id});
+                resolve();
             }, error => {
                 //error
                 console.log("on no error");

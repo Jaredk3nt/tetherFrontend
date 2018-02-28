@@ -18,3 +18,7 @@ h1 {
     color: $font-color;
 }
 
+textarea:focus, input:focus {
+  outline: none;
+}
+

@@ -4,7 +4,6 @@
         <nav-button title="Post" @clicked="startWrite"/>
         <nav-button title="Profile" v-if="isLoggedIn"/>
         <nav-button title="Login" @clicked="login" v-else/>
-
     </div>
 </template>
 
