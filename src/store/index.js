@@ -33,7 +33,6 @@ const mutations = {
         state.isWriting = true;
     },
     STOP_WRITE (state) {
-        console.log('stop_write')
         state.isWriting = false;
     },
     POST (state) {

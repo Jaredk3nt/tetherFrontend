@@ -2,7 +2,7 @@
 <div class="page-body">
     <div class="homepage">
         <div class="story-list">
-            <story v-for="story in stories" v-bind:key="story.story" :author="story.author" :story="story.story"/>
+            <story v-for="story in stories" v-bind:key="story.body" :story="story"/>
         </div>
     </div>
     <nav-bar/>
@@ -17,9 +17,8 @@ export default {
   name: 'Home',
   data () {
     return {
-      stories: [ { author: "jared jones", story: "Lorem ipsum this is some random text that is a story." },
-                { author: "jared jones", story: "Lorem ipsum this is some random text that is a story. Lorem ipsum this is some random text that is a story. Lorem ipsum this is some random text that is a story. Lorem ipsum this is some random text that is a story. Lorem ipsum this is some random text that is a story." }, { author: "jared jones", story: "Lorem ipsum this is some random text that is a story. Lorem ipsum this is sm text that is a story. Lorem ipsum this is some random text that is a story. Lorem ipsum this is some random text that is a story. Lorem ipsum this is some random text that is a story." },
-                { author: "jared jones", story: "Lorem ipsum this is some random text that is a story. Lorem ipsum this is some random text that is a story. Lorem ipsum this is some random text that is a story. Lorem " }]
+      stories: [ { author: "jared jones", body: "Lorem ipsum this is some random text that is a story." },
+                { author: "jared jones", body: "Lorem ipsum this is some random text that is a story. Lorem ipsum this is some random text that is a story. Lorem ipsum this is some random text that is a story. Lorem ipsum this is some random text that is a story. Lorem ipsum this is some random text that is a story." }]
     }
   },
   components: {Story, NavBar}
@@ -36,7 +35,7 @@ export default {
     box-sizing: border-box;
 
     @include desktop {
-        grid-template-rows: $nav-height 1fr;
+        grid-template-rows: $nav-height-desktop 1fr;
     }
 
     .homepage {

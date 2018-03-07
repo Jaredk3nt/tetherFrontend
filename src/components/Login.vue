@@ -63,6 +63,7 @@ export default {
 <style lang="scss" scoped>
     @import '../styles/styles.scss';
     $login-input-height: 4.5em;
+    $login-input-height-desktop: 3.5em;
     
     .login-page {
         height: 100%;
@@ -72,8 +73,20 @@ export default {
         justify-content: center;
         align-items: center; 
 
+        h1 {
+            @include desktop {
+                font-size: 3rem;
+                margin-top: 0em;
+                margin-bottom: .5em;
+            }
+        }
+
         .login-field {
             width: 75%;
+
+            @include desktop {
+                width: 30%;
+            }
 
             input {
                 display: block;
@@ -84,6 +97,12 @@ export default {
                 border-bottom: 1px solid $accent-grey;
                 border-style: solid;
                 border-top: none; border-left: none; border-right: none;
+
+                @include desktop {
+                    font-size: 1.2rem;
+                    padding: .25em 1.5em;
+                    height: $login-input-height-desktop;
+                }
             }
 
             button {
@@ -94,11 +113,29 @@ export default {
                 border: none;
                 font-size: .85rem;
                 padding: 0px;
+
+                @include desktop {
+                    font-size: 1.25rem;
+                    height: calc(#{$login-input-height-desktop} - 1em);
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
             }
         }
 
         p {
             font-size: .85rem;
+
+            @include desktop {
+                font-size: 1rem;
+                margin-top: 2em;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
         }
     }
 </style>

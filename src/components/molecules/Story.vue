@@ -1,13 +1,13 @@
 <template>
-    <div class="story-container">
-        <div class="author">{{author}}</div>
-        <p>{{story}}</p>
-        <div class="story-actions">
-            <div class="action">></div>
-            <div class="action">*</div>
-            <div class="action">+</div>
+    <div class="card-container">
+        <div class="story-container">
+            <div class="author">{{story.author}}</div>
+            <p>{{story.body}}</p>
         </div>
-        <!-- <story-bar/> -->
+        <div class="story-actions">
+            <div class="action fav"><div class="heart icon"></div><p>243K</p></div>
+            <div class="action tether"><div class="link icon"></div><p>1000</p></div>
+        </div>
     </div>
 </template>
 
@@ -15,23 +15,40 @@
 
 export default {
     name:'story',
-    props: [ 'author', 'story' ],
+    props: [ 'story' ],
     components: {}
 }
 </script>
 
 <style lang="scss" scoped> 
 @import '../../styles/styles.scss';
+
+$card-margin: 1em;
+$card-side-padding: 1em;
+$card-side-padding-desktop: 2em;
+
+.card-container {
+    margin: $card-margin 0em;
+}
 .story-container {
     background: $white;
-    padding: 1em 1.5em 0em;
+    padding: 1em $card-side-padding .5em;
     width: 100%;
     box-sizing: border-box;
-    margin: 1em 0em;
+
+    @include desktop {
+        padding: 1.5em $card-side-padding-desktop 1em;
+    }
 
     .author {
         font-size: .85rem;
         color: $light-font;
+
+        @include desktop {
+            &:hover {
+                cursor: pointer;
+            }
+        }
     }
 
     p {
@@ -40,16 +57,124 @@ export default {
         font-family: $serif;
         font-weight: 500;
         margin: .4em 0em;
+
+        @include desktop {
+            font-size: $story-text-size-desktop;
+        }
+    }
+}
+
+.story-actions {
+    width: 100%;
+    padding: .5em $card-side-padding;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    border-top: 1px solid $accent-grey;
+    box-sizing: border-box;
+    background: $white;
+
+    @include desktop {
+        padding: .75em $card-side-padding-desktop;
+        grid-template-columns: 5fr 1fr 1fr;
     }
 
-    .story-actions {
-        height: 2em;
-        margin-top: .5em;
-        display: grid;
-        grid-template-columns: 4fr 1fr 1fr;
+    .action {
 
-        .action {
+        &:hover {
+            cursor: pointer;
         }
+
+        .icon {
+            display: inline-block;
+        }
+
+        p {
+            display: inline-block;
+            margin: 0px 10px 0px 10px;
+            font-weight: 500;
+            font-size: .85em;
+
+            @include desktop {
+                font-size: 1em;
+            }
+        }
+    }
+
+    .fav {
+        grid-column-start: 2;
+    }
+
+    .tether {
+        grid-column-start: 3;
+    }
+
+    .heart.icon {
+        color: #000;
+        position: relative;
+        margin-top: 6px;
+        margin-left: 5px;
+        width: 9px;
+        height: 9px;
+        border-left: solid 1px currentColor;
+        border-bottom: solid 1px currentColor;
+        -webkit-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+    }
+    .heart.icon:before {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -1px;
+        width: 8px;
+        height: 5px;
+        border-radius: 5px 5px 0 0;
+        border-top: solid 1px currentColor;
+        border-left: solid 1px currentColor;
+        border-right: solid 1px currentColor;
+    }
+    .heart.icon:after {
+        content: '';
+        position: absolute;
+        top: 0px;
+        left: 8px;
+        width: 5px;
+        height: 8px;
+        border-radius: 0 5px 5px 0;
+        border-top: solid 1px currentColor;
+        border-right: solid 1px currentColor;
+        border-bottom: solid 1px currentColor;
+    }
+
+    .link.icon {
+        color: #000;
+        position: relative;
+        margin-left: 8px;
+        margin-top: 10px;
+        width: 7px;
+        height: 1px;
+        background-color: currentColor;
+        -webkit-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+    }
+    .link.icon:before {
+        content: '';
+        position: absolute;
+        top: -3px;
+        left: -7px;
+        width: 8px;
+        height: 5px;
+        border-radius: 2px;
+        border: solid 1px currentColor;
+    }
+    .link.icon:after {
+        content: '';
+        position: absolute;
+        top: -3px;
+        right: -7px;
+        width: 8px;
+        height: 5px;
+        border-radius: 2px;
+        border: solid 1px currentColor;
     }
 }
 
