@@ -7,15 +7,11 @@ Vue.use(Vuex);
 const api = "https://tetherapi.herokuapp.com/";
 
 const state = {
-    isWriting: false,
     isLoggedIn: false,
     userid: "",
 }
 
 const getters = {
-    isWriting: state => {
-        return state.isWriting;
-    },
     isPendingLogin: state => {
         return state.pending;
     },
@@ -28,12 +24,6 @@ const getters = {
 }
 
 const mutations = {
-    WRITE (state) {
-        state.isWriting = true;
-    },
-    STOP_WRITE (state) {
-        state.isWriting = false;
-    },
     POST (state) {
         state.isWriting = false;
     },

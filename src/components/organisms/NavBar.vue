@@ -4,7 +4,7 @@
         <div class="nav-actions">
             <nav-button title="Read"/>
             <!-- <nav-button title="Write" @clicked="startWrite"/>-->
-            <router-link :to="{name: 'write'}">Write</router-link>
+            <nav-button title="Write" route="write"></nav-button>
             <nav-button title="Profile" v-if="isLoggedIn" @clicked="goToProfile"/>
             <nav-button title="Login" @clicked="login" v-else/>
         </div>

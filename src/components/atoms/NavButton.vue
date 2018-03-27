@@ -1,13 +1,18 @@
 <template>
-    <div class="nav-button" @click="$emit('clicked')">
-        <div class="title">{{title}}</div>
+    <div>
+        <div v-if="!route" class="nav-button" @click="$emit('clicked')">
+            <div class="title">{{title}}</div>
+        </div>
+        <router-link v-else class="nav-button" :to="{name: route}">
+            <div class="title">{{title}}</div>
+        </router-link>
     </div>
 </template>
 
 <script>
 export default {
     name: 'nav-button',
-    props: ['title'],
+    props: ['title', 'route'],
     methods: {
         dispatch: function() {
             this.$store.dispatch('test')
@@ -24,6 +29,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    text-decoration: none;
 
     .title {
         color: $font-color;
