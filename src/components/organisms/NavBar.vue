@@ -3,7 +3,6 @@
         <div class="nav-title">tethered</div>
         <div class="nav-actions">
             <nav-button title="Read"/>
-            <!-- <nav-button title="Write" @clicked="startWrite"/>-->
             <nav-button title="Write" route="write"></nav-button>
             <nav-button title="Profile" v-if="isLoggedIn" @clicked="goToProfile"/>
             <nav-button title="Login" @clicked="login" v-else/>
@@ -23,9 +22,6 @@ export default {
         }
     },
     methods: {
-        startWrite: function() {
-            this.$store.commit('WRITE');
-        },
         login: function() {
             this.$router.push('login');
         },

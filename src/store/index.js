@@ -44,12 +44,12 @@ const mutations = {
 }
 
 const actions = {
-    post ({ commit, getters }, story) {
+    post ({ commit, getters }, story_obj) {
         // Send story to API
         // On completion
         return new Promise( resolve => {
-            Vue.http.post( api + 'stories', { body: story }).then( response => {
-                console.log("posted: " + story)
+            Vue.http.post( api + 'stories', { body: story_obj.story, parent: story_obj.parent }).then( response => {
+                console.log("posted: " + story_obj.story)
                 commit('POST');
                 resolve();
             }, error => {

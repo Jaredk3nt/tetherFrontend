@@ -1,10 +1,15 @@
 <template>
 <div class="desktop-container">
     <div class="container" :class=" { open: parentOpen } ">
-        <div class="parent" :class=" { 'parent-open': parentOpen }"><p>{{parent}}</p></div>
+        <div class="parent" :class=" { 'parent-open': parentOpen }">
+            <div v-for="parent in parentStories" :key="parent._id">
+                <div class="author">{{parent.author}}</div>
+                <p>{{parent.body}}</p>
+            </div>
+        </div>
         <div class="top-bar" :class=" { grey: parentOpen }">
             <div class="back-button" @click="backButton" :class="{ grey: parent === undefined}" v-if="!parentOpen"><p>Back</p></div>
-            <div class="parent-button" @click="toggleParent" v-if="parent !== undefined">
+            <div class="parent-button" @click="toggleParent" v-if="parent !== undefined && parent !== ''">
                 <p v-if="!parentOpen">View parent story</p>
                 <p v-else>Hide parent story</p>
             </div>
@@ -23,25 +28,42 @@
 </template>
 
 <script>
+const api = "https://tetherapi.herokuapp.com/";
 export default {
     name:'post',
     props: ['parent'],
     data () {
         return {
             story: "",
-            parentOpen: false
+            parentOpen: false,
+            parentStories: ""
+        }
+    },
+    mounted: function() {
+        console.log(this.parent);
+        if(parent !== undefined && parent !== '') {
+            this.fetchParent();
         }
     },
     methods: {
         postStory: function() {
-            this.$store.dispatch('post', this.story);
+            this.$store.dispatch('post', {story: this.story, parent: this.parent});
+            this.$router.back()
         },
         backButton: function() {
-            //this.$store.commit('STOP_WRITE');
             this.$router.back()
         },
         toggleParent: function() {
             this.parentOpen = !this.parentOpen;
+        },
+        fetchParent: function() {
+            this.$http.get( api + 'parents/' + this.parent)
+                .then( response => {
+                    this.parentStories = response.body;
+                }, error => {
+                    //error
+                    console.log("on no error");
+                });
         }
     }
 }
@@ -109,8 +131,17 @@ $d-width: 50%;
             font-size: 1.3rem;
         }
 
+        .author {
+            font-size: .8rem;
+            margin: .25em 0em;
+            color: $accent-green;
+            font-family: $sans-serif;
+            font-weight: 700;
+        }
+
         p {
-            margin: 0px;
+            font-size: 1.05rem;
+            margin: .25em 0em;
         }
     }
 

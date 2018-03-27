@@ -1,6 +1,5 @@
 <template>
     <div id="app">
-        <!-- <post v-if="postOpen" parent=""/> -->
         <router-view/>
     </div>
 </template>

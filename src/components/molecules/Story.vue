@@ -23,7 +23,7 @@ export default {
             this.$router.push({ name: 'Story', params: { user: this.story.author, story_id: this.story._id, story: this.story}})
         },
         spawnChild: function() {
-            
+            this.$router.push({ name: 'write', params: { parent: this.story._id }})
         }
     }
 }
