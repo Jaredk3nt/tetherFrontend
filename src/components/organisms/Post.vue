@@ -37,7 +37,8 @@ export default {
             this.$store.dispatch('post', this.story);
         },
         backButton: function() {
-            this.$store.commit('STOP_WRITE');
+            //this.$store.commit('STOP_WRITE');
+            this.$router.back()
         },
         toggleParent: function() {
             this.parentOpen = !this.parentOpen;
@@ -75,6 +76,12 @@ $d-width: 50%;
 }
 
 .container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+    height: 100%;
     @include desktop {
         z-index: 99;
         position: relative;
@@ -113,7 +120,7 @@ $d-width: 50%;
         background-color: $white;
         box-sizing: border-box;
         display: grid;
-        position: absolute;
+        // position: absolute;
         z-index: 9999;
         grid-template-columns: $back-button-width 1fr $back-button-width;
         border-bottom: 2px solid $accent-grey;
@@ -145,9 +152,9 @@ $d-width: 50%;
 
             @include desktop {
                 grid-column-start: 3;
-                position: absolute;
-                width: 100%;
-                height: 100%;
+                // position: absolute;
+                // width: 100%;
+                // height: 100%;
             }
         }
         .parent-button {
@@ -174,18 +181,18 @@ $d-width: 50%;
     }
 
     .post-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
+        // position: absolute;
+        // top: 0;
+        // left: 0;
+        // right: 0;
+        // width: 100%;
         height: calc(100% - #{$top-bar-height});
         display: grid;
         grid-template-rows: 1fr $post-bar-height;
-        padding-top: $top-bar-height;
+        //padding-top: $top-bar-height;
 
         @include desktop {
-            padding-top: $top-bar-height-desktop;
+            //padding-top: $top-bar-height-desktop;
             height: calc(100% - #{$top-bar-height-desktop});
             grid-template-rows: 1fr $post-bar-height-desktop;
         }
@@ -224,6 +231,7 @@ $d-width: 50%;
             align-items: center;
             justify-content: space-between;
             border-top: 2px solid $accent-grey;
+            z-index: 999;
 
             p {
                 margin: 0px;

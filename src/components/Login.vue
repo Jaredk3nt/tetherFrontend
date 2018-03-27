@@ -15,14 +15,18 @@
                 <button @click="signup">Sign up now</button>
             </div>
         </div>
-        <div v-if="hasAccount"><p @click="toggleSignOn">New here? Create an account</p></div>
-        <div v-else><p @click="toggleSignOn">Already have an account? Log in here</p></div>
+        <div class="link-text" v-if="hasAccount"><p @click="toggleSignOn">New here? Create an account</p></div>
+        <div class="link-text" v-else><p @click="toggleSignOn">Already have an account? Log in here</p></div>
+        <div class="link-text"><p @click="back">Maybe later, I just want to read.</p></div>
     </div>
 </template>
 
 <script>
+import Toolbar from './atoms/Toolbar.vue';
+
 export default {
     name:'login',
+    components: {Toolbar},
     data: function()  {
         return {
             hasAccount: true,
@@ -33,6 +37,9 @@ export default {
         }
     },
     methods: {
+        back: function() {
+            this.$router.go(-1);
+        },
         toggleSignOn: function() {
             this.hasAccount = !this.hasAccount;
         },
@@ -40,6 +47,7 @@ export default {
             this.$store.dispatch('login', ( {username: this.username, password: this.password} )).then( response => {
                 this.$router.go(-1);
             }, error => {
+                console.log('got error')
                 console.log(error);
             });
         },
@@ -81,8 +89,19 @@ export default {
             }
         }
 
+        .link-text {
+            p {
+                margin: .5em 0em;
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
         .login-field {
             width: 75%;
+            margin-bottom: .75em;
 
             @include desktop {
                 width: 30%;
@@ -114,13 +133,13 @@ export default {
                 font-size: .85rem;
                 padding: 0px;
 
+                &:hover {
+                    cursor: pointer;
+                }
+
                 @include desktop {
                     font-size: 1.25rem;
                     height: calc(#{$login-input-height-desktop} - 1em);
-
-                    &:hover {
-                        cursor: pointer;
-                    }
                 }
             }
         }

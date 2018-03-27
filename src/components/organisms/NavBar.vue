@@ -3,8 +3,9 @@
         <div class="nav-title">tethered</div>
         <div class="nav-actions">
             <nav-button title="Read"/>
-            <nav-button title="Write" @clicked="startWrite"/>
-            <nav-button title="Profile" v-if="isLoggedIn"/>
+            <!-- <nav-button title="Write" @clicked="startWrite"/>-->
+            <router-link :to="{name: 'write'}">Write</router-link>
+            <nav-button title="Profile" v-if="isLoggedIn" @clicked="goToProfile"/>
             <nav-button title="Login" @clicked="login" v-else/>
         </div>
     </div>
@@ -27,6 +28,9 @@ export default {
         },
         login: function() {
             this.$router.push('login');
+        },
+        goToProfile: function() {
+            this.$router.push('/' + this.$store.getters.user);
         }
     }
 }

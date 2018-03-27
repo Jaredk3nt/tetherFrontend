@@ -1,12 +1,12 @@
 <template>
     <div class="card-container">
-        <div class="story-container">
+        <div class="story-container" @click="goToStory">
             <div class="author">{{story.author}}</div>
             <p>{{story.body}}</p>
         </div>
         <div class="story-actions">
-            <div class="action fav"><div class="heart icon"></div><p>243K</p></div>
-            <div class="action tether"><div class="link icon"></div><p>1000</p></div>
+            <div class="action fav"><div class="heart icon"></div><p>{{story.likes}}</p></div>
+            <div class="action tether" @click="spawnChild"><div class="link icon"></div><p>{{story.children.length}}</p></div>
         </div>
     </div>
 </template>
@@ -16,7 +16,16 @@
 export default {
     name:'story',
     props: [ 'story' ],
-    components: {}
+    components: {},
+    methods: {
+        goToStory: function() {
+            console.log(this.story)
+            this.$router.push({ name: 'Story', params: { user: this.story.author, story_id: this.story._id, story: this.story}})
+        },
+        spawnChild: function() {
+            
+        }
+    }
 }
 </script>
 
@@ -35,6 +44,10 @@ $card-side-padding-desktop: 2em;
     padding: 1em $card-side-padding .5em;
     width: 100%;
     box-sizing: border-box;
+
+    &:hover {
+        cursor: pointer;
+    }
 
     @include desktop {
         padding: 1.5em $card-side-padding-desktop 1em;
@@ -68,14 +81,14 @@ $card-side-padding-desktop: 2em;
     width: 100%;
     padding: .5em $card-side-padding;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 3fr 1fr 1fr;
     border-top: 1px solid $accent-grey;
     box-sizing: border-box;
     background: $white;
 
     @include desktop {
         padding: .75em $card-side-padding-desktop;
-        grid-template-columns: 5fr 1fr 1fr;
+        grid-template-columns: 6fr 1fr 1fr;
     }
 
     .action {
