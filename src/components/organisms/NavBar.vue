@@ -1,5 +1,5 @@
 <template>
-    <div class="nav-container">
+    <div class="nav-container" :class="{hidden: loginRoute}">
         <div class="nav-title">tethered</div>
         <div class="nav-actions">
             <nav-button title="Read" route="Home"/>
@@ -19,6 +19,12 @@ export default {
     computed: {
         isLoggedIn: function() {
             return this.$store.getters.isLoggedIn;
+        },
+        loginRoute: function() {
+            if(this.$route.path === '/login') {
+                return true;
+            }
+            return false;
         }
     },
     methods: {
@@ -45,6 +51,10 @@ export default {
     box-sizing: border-box;
     box-shadow: -1px 0px 10px rgba(0,0,0,.2);
     align-items: center;
+
+    &.hidden {
+        display: none;
+    }
 
     @include desktop {
         height: $nav-height-desktop;

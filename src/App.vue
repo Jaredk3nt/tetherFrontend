@@ -1,22 +1,21 @@
 <template>
     <div id="app">
-        <router-view/>
+        <div class="page-body">
+            <keep-alive include="Home">
+                <router-view/>
+            </keep-alive>
+        </div>
+        <nav-bar/>
     </div>
 </template>
 
 <script>
-import Post from '@/components/organisms/Post';
+import NavBar from '@/components/organisms/NavBar.vue';
 
 export default {
     name: 'App',
-    components: { Post },
+    components: { NavBar },
     computed: {
-        postOpen: function() {
-            return this.$store.getters.isWriting;
-        },
-        loggingIn: function() {
-            return this.$store.getters.isLoggingIn;
-        }
     },
     mounted: function() {
         this.$store.dispatch('checkLogin');
@@ -33,5 +32,22 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     height: 100%;
     box-sizing: border-box;
+
+    display: grid;
+    grid-template-rows: 1fr $nav-height; 
+    height: 100%;
+    box-sizing: border-box;
+
+    @include desktop {
+        grid-template-rows: $nav-height-desktop 1fr;
+    }
+
+    .page-body {
+        grid-row-start: 1;
+        overflow: scroll;
+        @include desktop {
+            grid-row-start: 2;
+        }
+    }
 }
 </style>

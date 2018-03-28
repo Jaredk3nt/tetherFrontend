@@ -31,9 +31,10 @@ export default new Router({
       props: true
     },
     {
-      path: '/:user',
+      path: '/:userId',
       name: 'Profile',
-      component: Profile
+      component: Profile,
+      props: true
     }
   ]
 })

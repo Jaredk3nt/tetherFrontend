@@ -42,7 +42,7 @@ export default {
     },
     methods: {
         getStory: function(id) {
-            this.$http.get( this.$api + 'stories/' + id).then( response => {
+            this.$http.get( this.$api + 'story/' + id).then( response => {
                 this.story = response.body
             }, error => {
                 //error

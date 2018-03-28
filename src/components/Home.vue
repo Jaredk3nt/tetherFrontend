@@ -1,12 +1,11 @@
 <template>
-<div class="page-body">
+<div class="">
     <router-view/>
     <div class="homepage">
         <div class="story-list">
             <story v-for="story in stories" v-bind:key="story._id" :story="story"/>
         </div>
     </div>
-    <nav-bar/>
 </div>
 </template>
 
@@ -42,28 +41,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 @import '../styles/styles.scss';
-.page-body {
-    display: grid;
-    grid-template-rows: 1fr $nav-height; 
-    height: 100%;
-    box-sizing: border-box;
-
-    @include desktop {
-        grid-template-rows: $nav-height-desktop 1fr;
-    }
-
-    .homepage {
-        overflow: scroll;
+.homepage {
         display: flex;
         flex-direction: column;
         align-items: center;
-        grid-row-start: 1;
-        overflow: scroll;
         width: 100%;
-
-        @include desktop {
-            grid-row-start: 2;
-        }
 
         .story-list {
             box-sizing: border-box;
@@ -75,6 +57,4 @@ export default {
             
         }
     }
-}
-
 </style>
