@@ -19,7 +19,7 @@ export default {
         }
     },
     mounted: function() {
-        this.$store.dispatch('checkCookies')
+        this.$store.dispatch('checkLogin');
     }
 }
 </script>

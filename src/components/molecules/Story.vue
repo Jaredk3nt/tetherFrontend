@@ -1,11 +1,11 @@
 <template>
     <div class="card-container">
         <div class="story-container" @click="goToStory">
-            <div class="author">{{story.author}}</div>
-            <p>{{story.body}}</p>
+            <div class="author">{{story.author ? story.author : ' '}}</div>
+            <p>{{story.body ? story.body : ' '}}</p>
         </div>
         <div class="story-actions">
-            <div class="action fav"><div class="heart icon"></div><p>{{story.likes}}</p></div>
+            <div class="action fav" :class="{ liked: liked }" @click="likeStory"><div class="heart icon"></div><p>{{story.likes}}</p></div>
             <div class="action tether" @click="spawnChild"><div class="link icon"></div><p>{{story.children.length}}</p></div>
         </div>
     </div>
@@ -17,13 +17,35 @@ export default {
     name:'story',
     props: [ 'story' ],
     components: {},
+    computed: {
+        liked: function() {
+            if(this.story !== undefined) {
+                let index = this.story.likeUsers.indexOf(this.$store.getters.user);
+                if(index > -1) {
+                    return true;
+                }
+                return false;
+            }
+        }
+    },
+    mounted: function() {   
+    },
     methods: {
         goToStory: function() {
-            console.log(this.story)
             this.$router.push({ name: 'Story', params: { user: this.story.author, story_id: this.story._id, story: this.story}})
         },
         spawnChild: function() {
             this.$router.push({ name: 'write', params: { parent: this.story._id }})
+        },
+        likeStory: function() {
+            this.$http.post(this.$api + 'like/' + this.story._id)
+                .then( res => {
+                    this.liked = !this.liked;
+                    this.story.likes = res.body.likes
+                })
+                .catch( err => {
+                    console.log(err);
+                })
         }
     }
 }
@@ -115,6 +137,10 @@ $card-side-padding-desktop: 2em;
 
     .fav {
         grid-column-start: 2;
+
+        &.liked {
+            color: red;
+        }
     }
 
     .tether {

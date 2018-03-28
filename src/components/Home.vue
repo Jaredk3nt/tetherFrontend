@@ -13,7 +13,6 @@
 <script>
 import Story from '@/components/molecules/Story.vue';
 import NavBar from '@/components/organisms/NavBar.vue';
-const api = "https://tetherapi.herokuapp.com/";
 
 export default {
     name: 'Home',
@@ -24,9 +23,8 @@ export default {
     },
     methods: {
         fetchStories: function() {
-            this.$http.get( api + 'stories')
+            this.$http.get( this.$api + 'stories')
                 .then( response => {
-                    console.log(response.body)
                     this.stories = response.body;
                 }, error => {
                     //error

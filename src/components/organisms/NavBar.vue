@@ -2,7 +2,7 @@
     <div class="nav-container">
         <div class="nav-title">tethered</div>
         <div class="nav-actions">
-            <nav-button title="Read"/>
+            <nav-button title="Read" route="Home"/>
             <nav-button title="Write" route="write"></nav-button>
             <nav-button title="Profile" v-if="isLoggedIn" @clicked="goToProfile"/>
             <nav-button title="Login" @clicked="login" v-else/>

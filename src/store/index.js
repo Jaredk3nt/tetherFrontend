@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 
 //const debug = process.env.NODE_ENV !== 'production';
-const api = "https://tetherapi.herokuapp.com/";
+const api = 'https://tetherapi.herokuapp.com/';
 
 const state = {
     isLoggedIn: false,
@@ -35,8 +35,10 @@ const mutations = {
         state.pending = false;
         state.userid = creds.userid;
     },
-    PERSISTENT_LOGIN (state) {
+    PERSISTENT_LOGIN (state, user) {
         state.isLoggedIn = true;
+        state.userid = user.userid;
+        state.username = user.username;
     },
     LOGOUT (state) {
         state.isLoggedIn = false;
@@ -90,12 +92,15 @@ const actions = {
             });
         });
     },
-    checkCookies ({ commit }) {
-        var cookie = Vue.cookie.get('auth_token');
-        console.log(cookie);
-        if(cookie) {
-            commit('PERSISTENT_LOGIN');
-        }
+    checkLogin ({ commit }) {
+        Vue.http.get(api + 'login')
+            .then( res => {
+                console.log(res.body);
+                commit('PERSISTENT_LOGIN', res.body);
+            })
+            .catch( err => {
+                console.log(err);
+            });
     }
 }
 export default new Vuex.Store({

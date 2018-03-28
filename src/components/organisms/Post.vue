@@ -16,7 +16,7 @@
         </div>
         <div class="post-container">
             <div class="text-container">
-                <textarea max-length="600" placeholder="Write a story!" v-model="story"></textarea>
+                <textarea max-length="600" placeholder="Write a story!" v-model="story" @keydown="onKeyDown"></textarea>
             </div>
             <div class="bottom-bar">
                 <p>{{story.length}} / 600</p>
@@ -28,7 +28,6 @@
 </template>
 
 <script>
-const api = "https://tetherapi.herokuapp.com/";
 export default {
     name:'post',
     props: ['parent'],
@@ -40,7 +39,6 @@ export default {
         }
     },
     mounted: function() {
-        console.log(this.parent);
         if(parent !== undefined && parent !== '') {
             this.fetchParent();
         }
@@ -57,13 +55,20 @@ export default {
             this.parentOpen = !this.parentOpen;
         },
         fetchParent: function() {
-            this.$http.get( api + 'parents/' + this.parent)
+            this.$http.get( this.$api + 'parents/' + this.parent)
                 .then( response => {
                     this.parentStories = response.body;
                 }, error => {
                     //error
                     console.log("on no error");
                 });
+        },
+        onKeyDown: function(evnt) {
+            if (this.story.length >= this.$char_limit) {
+                evnt.preventDefault();
+                console.log('keydown');
+                return
+            }
         }
     }
 }

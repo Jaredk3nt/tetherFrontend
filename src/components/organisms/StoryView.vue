@@ -6,7 +6,7 @@
                 <story :story="this.story"/>
             </div>
             <div class="children-container">
-                <story v-for="story in children" v-bind:key="story._id" :story="story"/>
+                <story v-for="child in children" v-bind:key="child._id" :story="child"/>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
 <script>
 import Story from '../molecules/Story.vue';
 import Toolbar from '../atoms/Toolbar.vue';
-const api = "https://tetherapi.herokuapp.com/";
+
 export default {
     name:'story-view',
     props: ['username', 'story_id', 'story'],
@@ -32,16 +32,17 @@ export default {
         this.getChildren(this.story_id);
     },
     beforeRouteUpdate (to, from, next) {
-        // just use `this`
-        this.children = []
-        this.getStory(to.params.story_id)
-        this.getChildren(to.params.story_id)
-        next()
+        this.children = [];
+        if(to.params.story === undefined) {
+            this.getStory(to.params.story_id);
+        }
+        this.children = this.story.children.map( x => {})
+        this.getChildren(to.params.story_id);
+        next();
     },
     methods: {
         getStory: function(id) {
-            this.$http.get( api + 'stories/' + id).then( response => {
-                console.log(response.body);
+            this.$http.get( this.$api + 'stories/' + id).then( response => {
                 this.story = response.body
             }, error => {
                 //error
@@ -49,8 +50,7 @@ export default {
             });
         },
         getChildren: function(id) {
-            this.$http.get( api + 'children/' + id).then( response => {
-                console.log(response.body);
+            this.$http.get( this.$api + 'children/' + id).then( response => {
                 this.children = response.body;
             }, error => {
                 //error

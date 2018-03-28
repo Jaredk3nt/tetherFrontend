@@ -12,7 +12,8 @@ Vue.use(VueResource);
 Vue.http.options.credentials = true;
 Vue.use(VueCookie);
 Vue.config.productionTip = false;
-
+Vue.prototype.$api = 'https://tetherapi.herokuapp.com/';
+Vue.prototype.$char_limit = 600;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
