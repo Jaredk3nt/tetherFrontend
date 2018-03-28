@@ -92,6 +92,8 @@ $d-width: 50%;
 .desktop-container {
     @include desktop {
         position: absolute;
+        top: 0;
+        left: 0;
         background: rgba(0,0,0,0.5);
         width: 100%;
         height: 100%;
@@ -177,6 +179,7 @@ $d-width: 50%;
 
         .back-button {
             grid-column-start: 1;
+            grid-row-start: 1;
             text-align: center;
             display: flex;
             align-items: center;
@@ -195,6 +198,7 @@ $d-width: 50%;
         }
         .parent-button {
             grid-column-start: 2;
+            grid-row-start: 1;
             display: flex;
             align-items: center;
             justify-content: center;
