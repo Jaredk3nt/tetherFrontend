@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 
 //const debug = process.env.NODE_ENV !== 'production';
-const api = 'https://tetherapi.herokuapp.com/';
+const api = '/api/';
 
 const state = {
     isLoggedIn: false,
